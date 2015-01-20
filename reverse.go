@@ -40,11 +40,12 @@ func (us *urlStore) Add(urlName string, urlAddr string, params ...string) error 
 }
 
 // Adds a Url and panics if error
-func (us urlStore) MustAdd(urlName string, urlAddr string, params ...string) {
+func (us urlStore) MustAdd(urlName string, urlAddr string, params ...string) string {
 	err := us.Add(urlName, urlAddr, params...)
 	if err != nil {
 		panic(err)
 	}
+	return us.Get(urlName)
 }
 
 // Gets raw url string
