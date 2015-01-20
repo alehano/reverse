@@ -1,3 +1,10 @@
+// Copyright © 2015 Alexey Khalyapin - halyapin@gmail.com
+//
+// This program or package and any associated files are licensed under the
+// GNU GENERAL PUBLIC LICENSE Version 2 (the "License"); you may not use these files
+// except in compliance with the License. You can get a copy of the License
+// at: http://www.gnu.org/licenses/gpl-2.0.html
+
 package reverse
 
 import (
