@@ -6,17 +6,22 @@ import (
 )
 
 func TestReverse(t *testing.T) {
+	showError := func(info string) {
+		t.Error(fmt.Sprintf("Error: %s. urlStore: %s", info, Urls))
+	}
 
-	Urls.MustAdd("firstUrl", "/first")
-	Urls.MustAdd("helloUrl", "/hello/:p1:p2", "1", "2")
+	if Urls.MustAdd("firstUrl", "/first") != "/first" {
+		showError("0")
+	}
+
+	if Urls.MustAdd("helloUrl", "/hello/:p1:p2", "1", "2") != "/hello/:p1:p2" {
+		showError("0-1")
+	}
+
 	Urls.MustAdd("secondUrl", "/second/:param/:param2", ":param", ":param2")
 
 	// re := regexp.MustCompile("^/comment/(?P<id>\d+)$")
 	Urls.MustAdd("thirdUrl", "/comment/:p1", ":p1")
-
-	showError := func(info string) {
-		t.Error(fmt.Sprintf("Error: %s. urlStore: %s", info, Urls))
-	}
 
 	if Urls.getParam("helloUrl", 1) != "2" {
 		showError("1")

@@ -29,23 +29,23 @@ type urlStore struct {
 }
 
 // Adds a Url to the Store
-func (us *urlStore) Add(urlName string, urlAddr string, params ...string) error {
+func (us *urlStore) Add(urlName string, urlAddr string, params ...string) (string, error) {
 	if _, ok := us.store[urlName]; ok {
-		return errors.New("Url already exists")
+		return "", errors.New("Url already exists")
 	}
 
 	tmpUrl := url{urlAddr, params}
 	us.store[urlName] = tmpUrl
-	return nil
+	return urlAddr, nil
 }
 
 // Adds a Url and panics if error
 func (us urlStore) MustAdd(urlName string, urlAddr string, params ...string) string {
-	err := us.Add(urlName, urlAddr, params...)
+	addr, err := us.Add(urlName, urlAddr, params...)
 	if err != nil {
 		panic(err)
 	}
-	return us.Get(urlName)
+	return addr
 }
 
 // Gets raw url string
