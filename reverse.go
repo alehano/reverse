@@ -1,6 +1,7 @@
 package reverse
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 )
@@ -20,32 +21,22 @@ type urlStore struct {
 	store map[string]url
 }
 
-// TODO: add errors
-func (us *urlStore) Add(urlName string, urlAddr string, params ...string) {
+func (us *urlStore) Add(urlName string, urlAddr string, params ...string) error {
 	if _, ok := us.store[urlName]; ok {
-		panic("Url already exists")
+		errors.New("Url already exists")
 	}
 
 	tmpUrl := url{urlAddr, params}
 	us.store[urlName] = tmpUrl
 }
 
-// TODO: set out of package (with my ErrorStore)
-
-// Set Name, Url, Parameters in url
-func (us urlStore) Set(urlName string, urlAddr string, params ...string) string {
-	us.Add(urlName, urlAddr, params...)
-	return urlAddr
-}
-
 func (us urlStore) Get(urlName string) string {
 	return us.store[urlName].url
 }
 
-// TODO: add errors
-func (us urlStore) Reverse(urlName string, params ...string) string {
+func (us urlStore) Reverse(urlName string, params ...string) string, error {
 	if len(params) != len(us.store[urlName].params) {
-		panic("Bad Url Reverse")
+		errors.New("Bad Url Reverse: mismatch params")
 	}
 	res := us.store[urlName].url
 	for i, val := range params {
