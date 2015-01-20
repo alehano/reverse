@@ -4,7 +4,7 @@ Go (golang) url reverse
 
 Example using Goji router:
 
-```
+```go
 package main
 
 import (
