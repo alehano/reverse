@@ -7,12 +7,12 @@ import (
 
 func TestReverse(t *testing.T) {
 
-	Urls.Add("firstUrl", "/first")
-	Urls.Add("helloUrl", "/hello/:p1:p2", "1", "2")
-	Urls.Add("secondUrl", "/second/:param/:param2", ":param", ":param2")
+	Urls.MustAdd("firstUrl", "/first")
+	Urls.MustAdd("helloUrl", "/hello/:p1:p2", "1", "2")
+	Urls.MustAdd("secondUrl", "/second/:param/:param2", ":param", ":param2")
 
 	// re := regexp.MustCompile("^/comment/(?P<id>\d+)$")
-	Urls.Add("thirdUrl", "/comment/:p1", ":p1")
+	Urls.MustAdd("thirdUrl", "/comment/:p1", ":p1")
 
 	showError := func(info string) {
 		t.Error(fmt.Sprintf("Error: %s. urlStore: %s", info, Urls))
@@ -30,15 +30,15 @@ func TestReverse(t *testing.T) {
 		showError("3")
 	}
 
-	if Urls.Reverse("firstUrl") != "/first" {
+	if Urls.MustReverse("firstUrl") != "/first" {
 		showError("4")
 	}
 
-	if Urls.Reverse("secondUrl", "123", "ABC") != "/second/123/ABC" {
+	if Urls.MustReverse("secondUrl", "123", "ABC") != "/second/123/ABC" {
 		showError("5")
 	}
 
-	if Urls.Reverse("thirdUrl", "123") != "/comment/123" {
+	if Urls.MustReverse("thirdUrl", "123") != "/comment/123" {
 		t.Error(Urls.Reverse("thirdUrl", "123"))
 		showError("6")
 	}

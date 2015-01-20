@@ -21,26 +21,47 @@ type urlStore struct {
 	store map[string]url
 }
 
+// Adds a Url to the Store
 func (us *urlStore) Add(urlName string, urlAddr string, params ...string) error {
 	if _, ok := us.store[urlName]; ok {
-		errors.New("Url already exists")
+		return errors.New("Url already exists")
 	}
 
 	tmpUrl := url{urlAddr, params}
 	us.store[urlName] = tmpUrl
+	return nil
 }
 
+// Adds a Url and panics if error
+func (us urlStore) MustAdd(urlName string, urlAddr string, params ...string) {
+	err := us.Add(urlName, urlAddr, params...)
+	if err != nil {
+		panic(err)
+	}
+}
+
+// Gets raw url string
 func (us urlStore) Get(urlName string) string {
 	return us.store[urlName].url
 }
 
-func (us urlStore) Reverse(urlName string, params ...string) string, error {
+// Gets reversed url
+func (us urlStore) Reverse(urlName string, params ...string) (string, error) {
 	if len(params) != len(us.store[urlName].params) {
-		errors.New("Bad Url Reverse: mismatch params")
+		return "", errors.New("Bad Url Reverse: mismatch params")
 	}
 	res := us.store[urlName].url
 	for i, val := range params {
 		res = strings.Replace(res, us.store[urlName].params[i], val, 1)
+	}
+	return res, nil
+}
+
+// Gets reversed url and panics if error
+func (us urlStore) MustReverse(urlName string, params ...string) string {
+	res, err := us.Reverse(urlName, params...)
+	if err != nil {
+		panic(err)
 	}
 	return res
 }
