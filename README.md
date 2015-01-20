@@ -1,6 +1,8 @@
 # reverse
 Go (golang) url reverse
 
+Simple url reverse package. It fits to any router. All it does is just store urls by name and replace params when you retrieve a url.
+To use it you have to add a url with name, raw url with placeholders (params) and a list of these params.
 
 Example using Goji router:
 
@@ -23,12 +25,12 @@ func hello(c web.C, w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-        // Set an Url and Params and return raw url to a router
+        // Set a Url and Params and return raw url to a router
         // reverse.Urls.MustAdd("UrlName", "/url_path/:param1/:param2", ":param1", ":param2")
 
         goji.Get(reverse.Urls.MustAdd("HelloUrl", "/hello/:name", ":name"), hello)
         
-        // For regexp you can save an url separately and then get it as usual:
+        // For regexp you can save a url separately and then get it as usual:
         // reverse.Urls.MustReverse("DeleteCommentUrl", "123")
         reverse.Urls.MustAdd("DeleteCommentUrl", "/comment/:id", ":id")
         re := regexp.MustCompile("^/comment/(?P<id>\d+)$")
@@ -36,4 +38,16 @@ func main() {
         
         goji.Serve()
 }
+```
+
+Example for Gorilla Mux
+
+```go
+
+// Original set: r.HandleFunc("/articles/{category}/{id:[0-9]+}", ArticleHandler)
+r.HandleFunc(reverse.Urls.MustAdd("ArticleCatUrl", "/articles/{category}/{id:[0-9]+}", "{category}", "{id:[0-9]+}"), ArticleHandler)
+
+// So, if we want to retrieve url "/articles/news/123", we call:
+fmt.Println( reverse.Urls.MustReverse("ArticleCatUrl", "news", "123") )
+
 ```
