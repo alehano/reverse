@@ -30,7 +30,7 @@ func main() {
         
         // For regexp you can save an url separately and then get it as usual:
         // reverse.Urls.MustReverse("deleteCommentUrl", "123")
-        reverse.Urls.MustAdd("deleteCommentUrl", "/comment/:id", ":id")
+        reverse.Urls.MustAdd("DeleteCommentUrl", "/comment/:id", ":id")
         re := regexp.MustCompile("^/comment/(?P<id>\d+)$")
         goji.Delete(re, deleteComment)
         
