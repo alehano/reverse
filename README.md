@@ -45,10 +45,8 @@ func main() {
 
         goji.Get(reverse.Urls.MustAdd("HelloUrl", "/hello/:name", ":name"), hello)
         
-        // For regexp you can save a url separately and then get it as usual:
-        // reverse.Urls.MustReverse("DeleteCommentUrl", "123")
-        reverse.Urls.MustAdd("DeleteCommentUrl", "/comment/:id", ":id")
-        re := regexp.MustCompile("^/comment/(?P<id>\d+)$")
+        // In regexp instead of: re := regexp.MustCompile("^/comment/(?P<id>\\d+)$")
+        re := regexp.MustCompile(reverse.Urls.MustAdd("DeleteCommentUrl", "^/comment/(?P<id>\\d+)$", "(?P<id>\\d+)$"))
         goji.Delete(re, deleteComment)
         
         goji.Serve()
