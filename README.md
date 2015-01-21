@@ -1,7 +1,7 @@
 # reverse
 Go (golang) url reverse
 
-Simple url reverse package. It fits to any router. All it does is just store urls by a name and replace params when you retrieve a url.
+Simple url reverse package. It fits to any router. All it does is just stores urls by a name and replace params when you retrieve a url.
 To use it you have to add a url with a name, raw url with placeholders (params) and a list of these params.
 
 Example using Goji router:
