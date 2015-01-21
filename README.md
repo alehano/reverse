@@ -1,9 +1,9 @@
 # reverse
 Go (golang) URL reverse
 
-It's useful for templates. You can get a URL by a name and params and not depend on URL structure.
+Simple URL reverse package. It's useful for templates. You can get a URL by a name and params and not depend on URL structure.
 
-Simple URL reverse package. It fits to any router. All it does is just stores urls by a name and replace params when you retrieve a URL.
+It fits to any router. All it does is just stores urls by a name and replace params when you retrieve a URL.
 To use it you have to add a URL with a name, raw URL with placeholders (params) and a list of these params.
 
 ```go
