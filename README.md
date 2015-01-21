@@ -15,7 +15,8 @@ reverse.Urls.MustReverse("UrlName", "value1", "value2")
 
 // OUT: "/url_path/value1/value2"
 
-// Note, that these funcs panic if errors. Instead you can use .Add() and .Reverse() that return errors. Or you can make your own wrapper for them.
+// Note, that these funcs panic if errors. Instead you can use .Add() and .Reverse() 
+// that return errors. Or you can make your own wrapper for them.
 ```
 
 Example using Goji router:
