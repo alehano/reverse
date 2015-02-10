@@ -9,10 +9,10 @@ To use it you have to add a URL with a name, raw URL with placeholders (params) 
 ```go
 // To set a URL and return raw URL use:
 reverse.Urls.MustAdd("UrlName", "/url_path/:param1/:param2", ":param1", ":param2")
+// OUT: "/url_path/:param1/:param2"
 
 // To retrieve a URL by name with given params use:
 reverse.Urls.MustReverse("UrlName", "value1", "value2")
-
 // OUT: "/url_path/value1/value2"
 
 // Note, that these funcs panic if errors. Instead you can use .Add() and .Reverse() 
