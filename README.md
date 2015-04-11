@@ -8,12 +8,15 @@ To use it you have to add a URL with a name, raw URL with placeholders (params) 
 
 ```go
 // To set a URL and return raw URL use:
-reverse.Urls.MustAdd("UrlName", "/url_path/:param1/:param2", ":param1", ":param2")
+reverse.Add("UrlName", "/url_path/:param1/:param2", ":param1", ":param2")
+// OUT: "/url_path/:param1/:param2"
 
 // To retrieve a URL by name with given params use:
-reverse.Urls.MustReverse("UrlName", "value1", "value2")
-
+reverse.Rev("UrlName", "value1", "value2")
 // OUT: "/url_path/value1/value2"
+
+// Note, that these funcs panic if errors. Instead you can use Urls.Add() and Urls.Reverse() 
+// that return errors. Or you can make your own wrapper for them.
 ```
 
 Example using Goji router:
@@ -31,21 +34,19 @@ import (
 
 func hello(c web.C, w http.ResponseWriter, r *http.Request) {
         // We can get reversed URL by it's name and a list of params:
-        // reverse.Urls.MustReverse("UrlName", "value1", "value2")
+        // reverse.Rev("UrlName", "value1", "value2")
 
-        fmt.Fprintf(w, "Hello, %s", reverse.Urls.MustReverse("HelloUrl", c.URLParams["name"]))
+        fmt.Fprintf(w, "Hello, %s", reverse.Rev("HelloUrl", c.URLParams["name"]))
 }
 
 func main() {
         // Set a URL and Params and return raw URL to a router
-        // reverse.Urls.MustAdd("UrlName", "/url_path/:param1/:param2", ":param1", ":param2")
+        // reverse.Add("UrlName", "/url_path/:param1/:param2", ":param1", ":param2")
 
-        goji.Get(reverse.Urls.MustAdd("HelloUrl", "/hello/:name", ":name"), hello)
+        goji.Get(reverse.Add("HelloUrl", "/hello/:name", ":name"), hello)
         
-        // For regexp you can save a url separately and then get it as usual:
-        // reverse.Urls.MustReverse("DeleteCommentUrl", "123")
-        reverse.Urls.MustAdd("DeleteCommentUrl", "/comment/:id", ":id")
-        re := regexp.MustCompile("^/comment/(?P<id>\d+)$")
+        // In regexp instead of: re := regexp.MustCompile("^/comment/(?P<id>\\d+)$")
+        re := regexp.MustCompile(reverse.Add("DeleteCommentUrl", "^/comment/(?P<id>\\d+)$", "(?P<id>\\d+)$"))
         goji.Delete(re, deleteComment)
         
         goji.Serve()
@@ -57,9 +58,9 @@ Example for Gorilla Mux
 ```go
 
 // Original set: r.HandleFunc("/articles/{category}/{id:[0-9]+}", ArticleHandler)
-r.HandleFunc(reverse.Urls.MustAdd("ArticleCatUrl", "/articles/{category}/{id:[0-9]+}", "{category}", "{id:[0-9]+}"), ArticleHandler)
+r.HandleFunc(reverse.Add("ArticleCatUrl", "/articles/{category}/{id:[0-9]+}", "{category}", "{id:[0-9]+}"), ArticleHandler)
 
 // So, if we want to retrieve URL "/articles/news/123", we call:
-fmt.Println( reverse.Urls.MustReverse("ArticleCatUrl", "news", "123") )
+fmt.Println( reverse.Rev("ArticleCatUrl", "news", "123") )
 
 ```

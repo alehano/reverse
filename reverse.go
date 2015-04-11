@@ -19,6 +19,17 @@ func init() {
 	Urls = &urlStore{store: make(map[string]url)}
 }
 
+
+// Adds url to store
+func Add(urlName string, urlAddr string, params ...string) string {
+	return Urls.MustAdd(urlName, urlAddr, params...)
+}
+
+// Reverse url by name
+func Rev(urlName string, params ...string) string {
+	return Urls.MustReverse(urlName, params...)
+}
+
 type url struct {
 	url    string
 	params []string
@@ -82,3 +93,4 @@ func (us urlStore) Sting() string {
 func (us urlStore) getParam(urlName string, num int) string {
 	return us.store[urlName].params[num]
 }
+
