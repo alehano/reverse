@@ -15,6 +15,11 @@ reverse.Add("UrlName", "/url_path/:param1/:param2", ":param1", ":param2")
 reverse.Rev("UrlName", "value1", "value2")
 // OUT: "/url_path/value1/value2"
 
+// Get raw url by name
+reverse.Get("UrlName")
+// OUT: "/url_path/:param1/:param2"
+
+
 // Note, that these funcs panic if errors. Instead you can use Urls.Add() and Urls.Reverse() 
 // that return errors. Or you can make your own wrapper for them.
 ```

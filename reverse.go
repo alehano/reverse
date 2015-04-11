@@ -30,6 +30,11 @@ func Rev(urlName string, params ...string) string {
 	return Urls.MustReverse(urlName, params...)
 }
 
+// Gets raw url by name
+func Get(urlName string) string {
+	return Urls.Get(urlName)
+}
+
 type url struct {
 	url    string
 	params []string
