@@ -8,7 +8,6 @@ To use it you have to add a URL with a name, raw URL with placeholders (params) 
 
 ```go
 // To set a URL and return raw URL use:
-<<<<<<< HEAD
 reverse.Add("UrlName", "/url_path/:param1/:param2", ":param1", ":param2")
 // OUT: "/url_path/:param1/:param2"
 
@@ -17,16 +16,6 @@ reverse.Rev("UrlName", "value1", "value2")
 // OUT: "/url_path/value1/value2"
 
 // Note, that these funcs panic if errors. Instead you can use Urls.Add() and Urls.Reverse() 
-=======
-reverse.Urls.MustAdd("UrlName", "/url_path/:param1/:param2", ":param1", ":param2")
-// OUT: "/url_path/:param1/:param2"
-
-// To retrieve a URL by name with given params use:
-reverse.Urls.MustReverse("UrlName", "value1", "value2")
-// OUT: "/url_path/value1/value2"
-
-// Note, that these funcs panic if errors. Instead you can use .Add() and .Reverse() 
->>>>>>> af41320a1ff057b3d2464ace08d83e1f6d24b158
 // that return errors. Or you can make your own wrapper for them.
 ```
 
@@ -57,11 +46,7 @@ func main() {
         goji.Get(reverse.Add("HelloUrl", "/hello/:name", ":name"), hello)
         
         // In regexp instead of: re := regexp.MustCompile("^/comment/(?P<id>\\d+)$")
-<<<<<<< HEAD
         re := regexp.MustCompile(reverse.Add("DeleteCommentUrl", "^/comment/(?P<id>\\d+)$", "(?P<id>\\d+)$"))
-=======
-        re := regexp.MustCompile(reverse.Urls.MustAdd("DeleteCommentUrl", "^/comment/(?P<id>\\d+)$", "(?P<id>\\d+)$"))
->>>>>>> af41320a1ff057b3d2464ace08d83e1f6d24b158
         goji.Delete(re, deleteComment)
         
         goji.Serve()
