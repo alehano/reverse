@@ -42,7 +42,7 @@ type urlStore struct {
 // Adds a Url to the Store
 func (us *urlStore) Add(urlName string, urlAddr string, params ...string) (string, error) {
 	if _, ok := us.store[urlName]; ok {
-		return "", errors.New("Url already exists")
+		return "", errors.New("Url already exists. Try to use .Get() method.")
 	}
 
 	tmpUrl := url{urlAddr, params}
