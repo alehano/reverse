@@ -21,8 +21,12 @@ func init() {
 
 
 // Adds url to store
-func Add(urlName string, urlAddr string, params ...string) string {
+func Add(urlName, urlAddr string, params ...string) string {
 	return Urls.MustAdd(urlName, urlAddr, params...)
+}
+
+func AddGr(urlName, group, urlAddr string, params ...string) string {
+	return Urls.MustAddGr(urlName, group, urlAddr, params...)
 }
 
 // Reverse url by name
