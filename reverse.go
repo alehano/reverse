@@ -45,19 +45,33 @@ type urlStore struct {
 }
 
 // Adds a Url to the Store
-func (us *urlStore) Add(urlName string, urlAddr string, params ...string) (string, error) {
+func (us *urlStore) Add(urlName, urlAddr string, params ...string) (string, error) {
+	return us.AddGr(urlName, "", urlAddr, params)
+}
+
+// Adds a Url and panics if error
+func (us urlStore) MustAdd(urlName, urlAddr string, params ...string) string {
+	addr, err := us.Add(urlName, urlAddr, params...)
+	if err != nil {
+		panic(err)
+	}
+	return addr
+}
+
+// Adds with group refix
+func (us *urlStore) AddGr(urlName, group, urlAddr string, params ...string) (string, error) {
 	if _, ok := us.store[urlName]; ok {
 		return "", errors.New("Url already exists. Try to use .Get() method.")
 	}
 
-	tmpUrl := url{urlAddr, params}
+	tmpUrl := url{group + urlAddr, params}
 	us.store[urlName] = tmpUrl
 	return urlAddr, nil
 }
 
-// Adds a Url and panics if error
-func (us urlStore) MustAdd(urlName string, urlAddr string, params ...string) string {
-	addr, err := us.Add(urlName, urlAddr, params...)
+// Adds a Url with group prefix
+func (us urlStore) MustAddGr(urlName, group, urlAddr string, params ...string) string {
+	addr, err := us.AddGr(urlName, group, urlAddr, params...)
 	if err != nil {
 		panic(err)
 	}
