@@ -46,7 +46,7 @@ type urlStore struct {
 
 // Adds a Url to the Store
 func (us *urlStore) Add(urlName, urlAddr string, params ...string) (string, error) {
-	return us.AddGr(urlName, "", urlAddr, params)
+	return us.AddGr(urlName, "", urlAddr, params...)
 }
 
 // Adds a Url and panics if error
