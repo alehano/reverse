@@ -108,6 +108,10 @@ func (us urlStore) MustReverse(urlName string, params ...string) string {
 	return res
 }
 
+func (us urlStore) Rev(urlName string, params ...string) string {
+	return us.MustReverse(urlName, params...)
+}
+
 func (us urlStore) Sting() string {
 	return fmt.Sprint(us.store)
 }
