@@ -25,6 +25,7 @@ func Add(urlName, urlAddr string, params ...string) string {
 	return Urls.MustAdd(urlName, urlAddr, params...)
 }
 
+// Adds url with concat group, but returns just urlAddr
 func AddGr(urlName, group, urlAddr string, params ...string) string {
 	return Urls.MustAddGr(urlName, group, urlAddr, params...)
 }
