@@ -15,6 +15,9 @@ reverse.Add("UrlName", "/url_path/:param1/:param2", ":param1", ":param2")
 reverse.AddGr("UrlName", "GroupName", "/url_path/:param1/:param2", ":param1", ":param2")
 // OUT: "/url_path/:param1/:param2"
 
+// Note, that these funcs panic if errors. Instead you can use Urls.Add() and Urls.Reverse() 
+// that return errors. Or you can make your own wrapper for them.
+
 // To retrieve a URL by name with given params use:
 reverse.Rev("UrlName", "value1", "value2")
 // OUT: "/url_path/value1/value2"
@@ -29,9 +32,6 @@ reverse.GetAllUrls()
 // Get all urls params as map[string][]string
 reverse.GetAllParams()
 
-
-// Note, that these funcs panic if errors. Instead you can use Urls.Add() and Urls.Reverse() 
-// that return errors. Or you can make your own wrapper for them.
 ```
 
 Example for Gin router (https://github.com/gin-gonic/gin):
