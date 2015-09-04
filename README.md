@@ -11,6 +11,10 @@ To use it you have to add a URL with a name, raw URL with placeholders (params) 
 reverse.Add("UrlName", "/url_path/:param1/:param2", ":param1", ":param2")
 // OUT: "/url_path/:param1/:param2"
 
+// To set a group URL (with group name prefix) and return raw URL use:
+reverse.AddGr("UrlName", "GroupName", "/url_path/:param1/:param2", ":param1", ":param2")
+// OUT: "/url_path/:param1/:param2"
+
 // To retrieve a URL by name with given params use:
 reverse.Rev("UrlName", "value1", "value2")
 // OUT: "/url_path/value1/value2"
@@ -19,9 +23,58 @@ reverse.Rev("UrlName", "value1", "value2")
 reverse.Get("UrlName")
 // OUT: "/url_path/:param1/:param2"
 
+// Get all url as map[string]string
+reverse.GetAllUrls()
+
+// Get all urls params as map[string][]string
+reverse.GetAllParams()
+
 
 // Note, that these funcs panic if errors. Instead you can use Urls.Add() and Urls.Reverse() 
 // that return errors. Or you can make your own wrapper for them.
+```
+
+Example for [router]: https://github.com/gin-gonic/gin :
+
+```go
+func main() {
+    router := gin.Default()
+    
+    // URL: "/"
+    // To fetch the url use: reverse.Rev("home")
+    router.GET(reverse.Add("home", "/"), indexEndpoint)
+    
+    // URL: "/get/123"
+    // With param: c.Param("id")
+    // To fetch the url use: reverse.Rev("getUrl", "123")
+    router.GET(reverse.Add("getUrl", "/get/:id"), getUrlEndpoint)
+    
+
+    // Simple group: v1 (each url starts with /v1 prefix)
+    groupName := "/v1"
+    v1 := router.Group(groupName)
+    {
+        // URL: "/v1"
+        // To fetch the url use: reverse.Rev("v1_root")
+        v1.GET(reverse.AddGr("v1_root", groupName, ""), v1RootEndpoint)
+        
+        // URL: "v1/read/cat123/id456"
+        // With params (c.Param): catId, articleId
+        // To fetch the url use: reverse.Rev("v1_read", "123", "456")
+        v1.GET(reverse.AddGr("v1_read", groupName, "/read/cat:catId/id:articleId", ":catId", ":articleId"), readEndpoint)
+
+        // URL: /v1/login
+        // To fetch the url use: reverse.Rev("v1_login")
+        v1.GET(reverse.AddGr("v1_login", groupName, "/login"), loginGetEndpoint)
+        
+        // Same url but different http method
+        // We just get already set url by a name
+        v1.POST(reverse.Get("v1_login"), loginPostEndpoint)
+    }
+
+    router.Run(":8080")
+}
+
 ```
 
 Example using Goji router:
