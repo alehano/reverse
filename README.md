@@ -67,9 +67,6 @@ func main() {
         // To fetch the URL use: reverse.Rev("v1_login")
         v1.GET(reverse.AddGr("v1_login", groupName, "/login"), loginGetEndpoint)
         
-        // Same URL but different http method
-        // We just get already set URL by a name
-        v1.POST(reverse.Get("v1_login"), loginPostEndpoint)
     }
 
     router.Run(":8080")
