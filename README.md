@@ -34,7 +34,7 @@ reverse.GetAllParams()
 // that return errors. Or you can make your own wrapper for them.
 ```
 
-Example for [Gin router]: https://github.com/gin-gonic/gin
+Example for Gin router (https://github.com/gin-gonic/gin):
 
 ```go
 func main() {
