@@ -40,6 +40,24 @@ func Get(urlName string) string {
 	return Urls.Get(urlName)
 }
 
+// Gets saved all urls
+func GetAllUrls() map[string]string {
+	out := map[string]string{}
+	for key, value := range Urls.store {
+		out[key] = value.url
+	}
+	return out
+}
+
+// Gets all params
+func GetAllParams() map[string][]string {
+	out := map[string][]string{}
+	for key, value := range Urls.store {
+		out[key] = value.params
+	}
+	return out
+}
+
 type url struct {
 	url    string
 	params []string
