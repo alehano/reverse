@@ -46,29 +46,29 @@ func main() {
     
     // URL: "/get/123"
     // With param: c.Param("id")
-    // To fetch the url use: reverse.Rev("getUrl", "123")
-    router.GET(reverse.Add("getUrl", "/get/:id"), getUrlEndpoint)
+    // To fetch the URL use: reverse.Rev("get_url", "123")
+    router.GET(reverse.Add("get_url", "/get/:id"), getUrlEndpoint)
     
 
-    // Simple group: v1 (each url starts with /v1 prefix)
+    // Simple group: v1 (each URL starts with /v1 prefix)
     groupName := "/v1"
     v1 := router.Group(groupName)
     {
         // URL: "/v1"
-        // To fetch the url use: reverse.Rev("v1_root")
+        // To fetch the URL use: reverse.Rev("v1_root")
         v1.GET(reverse.AddGr("v1_root", groupName, ""), v1RootEndpoint)
         
         // URL: "v1/read/cat123/id456"
         // With params (c.Param): catId, articleId
-        // To fetch the url use: reverse.Rev("v1_read", "123", "456")
+        // To fetch the URL use: reverse.Rev("v1_read", "123", "456")
         v1.GET(reverse.AddGr("v1_read", groupName, "/read/cat:catId/id:articleId", ":catId", ":articleId"), readEndpoint)
 
         // URL: /v1/login
-        // To fetch the url use: reverse.Rev("v1_login")
+        // To fetch the URL use: reverse.Rev("v1_login")
         v1.GET(reverse.AddGr("v1_login", groupName, "/login"), loginGetEndpoint)
         
-        // Same url but different http method
-        // We just get already set url by a name
+        // Same URL but different http method
+        // We just get already set URL by a name
         v1.POST(reverse.Get("v1_login"), loginPostEndpoint)
     }
 
