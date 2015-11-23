@@ -109,7 +109,7 @@ func (us urlStore) Get(urlName string) string {
 // Gets reversed url
 func (us urlStore) Reverse(urlName string, params ...string) (string, error) {
 	if len(params) != len(us.store[urlName].params) {
-		return "", errors.New("Bad Url Reverse: mismatch params")
+		return "", errors.New("Bad Url Reverse: mismatch params for URL: "+ urlName)
 	}
 	res := us.store[urlName].url
 	for i, val := range params {
