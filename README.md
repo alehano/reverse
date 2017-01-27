@@ -11,9 +11,9 @@ To use it you have to add a URL with a name, raw URL with placeholders (params) 
 reverse.Add("UrlName", "/url_path/:param1/:param2", ":param1", ":param2")
 // OUT: "/url_path/:param1/:param2"
 
-// To set a group URL (with group name prefix) and return raw URL use:
-reverse.AddGr("UrlName", "GroupName", "/url_path/:param1/:param2", ":param1", ":param2")
-// OUT: "/url_path/:param1/:param2"
+// To set a group URL (with group prefix) and return raw URL use:
+reverse.AddGr("UrlName", "/url_path", "/:param1/:param2", ":param1", ":param2")
+// OUT: "/:param1/:param2"
 
 // Note, that these funcs panic if errors. Instead you can use Urls.Add() and Urls.Reverse() 
 // that return errors. Or you can make your own wrapper for them.
