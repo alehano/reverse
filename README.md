@@ -119,3 +119,29 @@ r.HandleFunc(reverse.Add("ArticleCatUrl", "/articles/{category}/{id:[0-9]+}", "{
 fmt.Println( reverse.Rev("ArticleCatUrl", "news", "123") )
 
 ```
+
+
+Example subrouters for [Chi](https://github.com/go-chi/chi) router:
+
+```go
+// Original code
+r.Route("/articles", func(r chi.Router) {
+	r.Get("/", listArticles)
+	r.Route("/{articleID}", func(r chi.Router) {
+		r.Get("/", getArticle)
+	})
+})
+
+// With reverse package
+r.Route("/articles", func(r chi.Router) {
+	r.Get(reverse.AddGr("list_articles", "/articles", "/"), listArticles)
+	r.Route("/{articleID}", func(r chi.Router) {
+		r.Get(reverse.AddGr("get_article", "/articles/{articleID}", "/", "{articleID}"), getArticle)
+	})
+})
+
+// Get a reverse URL:
+reverse.Rev("get_article", "123")
+// Output: /articles/123/
+
+```
