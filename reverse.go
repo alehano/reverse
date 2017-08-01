@@ -127,6 +127,7 @@ func (us urlStore) MustReverse(urlName string, params ...string) string {
 	return res
 }
 
+// Reverse url, but returns empty string in case of error
 func (us urlStore) Rev(urlName string, params ...string) string {
 	return us.MustReverse(urlName, params...)
 }
