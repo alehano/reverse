@@ -11,7 +11,7 @@ To use it you have to add a URL with a name, raw URL with placeholders (params) 
 reverse.Add("UrlName", "/url_path/:param1/:param2", ":param1", ":param2")
 // OUT: "/url_path/:param1/:param2"
 
-// To set URL with group (subrouter) prefix and return URL without prefix use:
+// To set a URL with group (subrouter) prefix and return URL without prefix use:
 reverse.AddGr("UrlName", "/url_path", "/:param1/:param2", ":param1", ":param2")
 // OUT: "/:param1/:param2"
 
