@@ -144,7 +144,7 @@ r.Route("/articles", func(r chi.Router) {
 reverse.Rev("get_article", "123")
 // Output: /articles/123/
 
-// One more example (without tailing slashed)
+// One more example (without tailing slashes)
 
 r.Route(reverse.Add("admin.index", "/admin"), func(r chi.Router) {
 	r.Get("/", index)
