@@ -11,7 +11,7 @@ To use it you have to add a URL with a name, raw URL with placeholders (params) 
 reverse.Add("UrlName", "/url_path/:param1/:param2", ":param1", ":param2")
 // OUT: "/url_path/:param1/:param2"
 
-// To set a group URL (with group prefix) and return raw URL use:
+// To set URL with group (subrouter) prefix and return URL without prefix use:
 reverse.AddGr("UrlName", "/url_path", "/:param1/:param2", ":param1", ":param2")
 // OUT: "/:param1/:param2"
 
@@ -145,7 +145,6 @@ reverse.Rev("get_article", "123")
 // Output: /articles/123/
 
 // One more example (without tailing slashes)
-
 r.Route(reverse.Add("admin.index", "/admin"), func(r chi.Router) {
 	r.Get("/", index)
 

@@ -74,7 +74,7 @@ func (us urlStore) MustAdd(urlName, urlAddr string, params ...string) string {
 	return addr
 }
 
-// Adds with group refix
+// Adds with group prefix
 func (us *urlStore) AddGr(urlName, group, urlAddr string, params ...string) (string, error) {
 	if _, ok := us.store[urlName]; ok {
 		return "", errors.New("Url already exists. Try to use .Get() method.")
