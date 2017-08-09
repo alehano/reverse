@@ -48,4 +48,9 @@ func TestReverse(t *testing.T) {
 		showError("6")
 	}
 
+	Clear()
+	if len(Urls.store) != 0 {
+		showError("7")
+	}
+
 }

@@ -12,6 +12,11 @@ func init() {
 	Urls = &urlStore{store: make(map[string]url)}
 }
 
+func Clear() {
+	for k := range Urls.store {
+		delete(Urls.store, k)
+	}
+}
 
 // Adds url to store
 func Add(urlName, urlAddr string, params ...string) string {
